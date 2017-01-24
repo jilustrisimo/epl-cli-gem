@@ -6,8 +6,8 @@ require 'epl_cli_gem/version'
 Gem::Specification.new do |spec|
   spec.name          = "epl_cli_gem"
   spec.version       = EplCliGem::VERSION
-  spec.authors       = ["<github username>"]
-  spec.email         = ["<github email address>"]
+  spec.authors       = ["jilustrisimo"]
+  spec.email         = ["j.ilustrisimo@gmail.com"]
 
   spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
   spec.description   = %q{TODO: Write a longer description or delete this line.}

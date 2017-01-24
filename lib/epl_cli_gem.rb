@@ -1,5 +1,8 @@
-require "epl_cli_gem/version"
+## Acting as environment.rb ##
 
-module EplCliGem
-  # Your code goes here...
-end
+require_relative "epl_cli_gem/version"
+require_relative "epl_cli_gem/cli"
+
+# module EplCliGem
+#   # Your code goes here...
+# end
