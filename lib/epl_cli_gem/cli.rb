@@ -1,21 +1,23 @@
 class EplCliGem::CLI
 
   def call
-    EplCliGem::Team.list_teams
+    list_teams
+    # ask_for_team
     bye
   end
 
-  # def list_table
-  #   puts "Current League Table:"
-  #   puts <<-DOC
-  #         Team       Pl  -  GD  -  Pts
-  #     1. Chelsea     22  - +32  -  55
-  #     2. Arsenal     22  - +27  -  47
-  #   DOC
-  #   ask_for_team
-  # end
+  def list_teams
+    puts "---------------Current League Table---------------"
+    puts "Position    Team         Pl         GD        Pts"
+    @teams = EplCliGem::Team.sorted
+    @teams.each.with_index(1) do |team, i|
+      puts "   #{i}  #{team.name}  #{team.games_played}  -  #{team.goal_diff}  -  #{team.points}"
+    end
 
-  def self.ask_for_team
+    ask_for_team
+  end
+
+  def ask_for_team
     puts "Which team would you like more info on?"
     puts "You can select by rank or name."
     input = gets.strip
@@ -25,11 +27,11 @@ class EplCliGem::CLI
       puts "Arsenal..."
     else
       puts "Invalid Entry"
-      ask_for_team
+      self.ask_for_team
     end
     puts "Would you like to learn more about another team?"
     more_info = gets.strip
-    EplCliGem::Team.list_teams if more_info.downcase == 'y' || more_info.downcase == 'yes'
+    list_teams if more_info.downcase == 'y' || more_info.downcase == 'yes'
   end
 
   def bye

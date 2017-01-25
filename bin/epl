@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-require './lib/epl_cli_gem'
+require "bundler/setup"
+require "epl_cli_gem"
 
 EplCliGem::CLI.new.call
 
