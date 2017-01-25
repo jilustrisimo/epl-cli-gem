@@ -6,6 +6,7 @@ require 'pry'
 require_relative "epl_cli_gem/version"
 require_relative "epl_cli_gem/cli"
 require_relative "epl_cli_gem/team"
+require_relative "epl_cli_gem/scraper"
 
 # module EplCliGem
 #   # Your code goes here...

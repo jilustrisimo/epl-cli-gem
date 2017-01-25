@@ -5,7 +5,7 @@ class EplCliGem::CLI
   end
 
   def list_teams
-    puts "---------------Current League Table---------------"
+    puts "\n---------------Current League Table---------------"
     puts "Position    Team         Pl         GD        Pts"
     @teams = EplCliGem::Team.sorted
     @teams.each.with_index(1) do |team, i|
