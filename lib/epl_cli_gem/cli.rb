@@ -42,9 +42,12 @@ class EplCliGem::CLI
     puts "\n--------------#{team.name}-----------------"
     puts "Position:               #{team.rank}"
     puts "Points:                 #{team.points}"
-    puts "Stadium Address:        #{team.stadium}"
-    puts "Phone:                  #{team.phone}"
+    puts "Stadium Address:        #{nil}"
+    puts "Phone:                  #{nil}"
     puts "Website:                #{team.website}\n\n"
+    puts "\n---------------Team News-------------------"
+    team.club_news
+
   end
 
   def bye
@@ -61,14 +64,3 @@ private
   end
 
 end
-
-
-# [4] pry(#<EplCliGem::Team>)> doc.xpath("//div[@class='day'][1]/time").text
-# => ""
-# [5] pry(#<EplCliGem::Team>)> doc.xpath("//div[@class='fixturesAbridged matchListContainer']/div[@class='day'][1]/time").text
-# => ""
-# [6] pry(#<EplCliGem::Team>)> doc.xpath("//div[@class='fixturesAbridged matchListContainer']/div[@class='day'][1]/time")
-# => []
-# [7] pry(#<EplCliGem::Team>)> doc.css("div.fixturesAbridged.matchListContainer div.day time").text
-
-Nokogiri::HTML(open("https://www.premierleague.com/clubs"))

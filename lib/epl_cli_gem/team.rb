@@ -1,8 +1,9 @@
 class EplCliGem::Team
 
-  attr_accessor :name, :rank, :stadium, :url, :website, :games_played, :goal_diff, :points, :phone
+  attr_accessor :name, :rank, :stadium, :url, :website, :games_played, :goal_diff, :points
 
   @@all = []
+  @news = []
 
   def self.new_from_table(team)
 
@@ -49,7 +50,19 @@ class EplCliGem::Team
     ##titles: doc.xpath("//section[@class='mainWidget latestFeatures '][1]/ul[@class='block-list-4']/li/a[@class='thumbnail']/figure/figcaption/span[@class='title']").text
 
     ##links:doc.at_css("section.mainWidget.latestFeatures ul li a").attribute("href").value
+
+    news = doc.css("section.mainWidget.latestFeatures ul li")
+    count = 0
+    until count == 1
+    news.each do |li|
+        puts "#{li.css('span.title').text}\n\n"
+        puts "#{li.css('a').attribute('href').value}\n\n"
+        puts "- - - - - - - - - - - "
+      end
+      count +=1
+    end
   end
+
 
 
 

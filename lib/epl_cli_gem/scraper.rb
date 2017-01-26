@@ -13,6 +13,10 @@ class EplCliGem::Scraper
     teams.each{|team| EplCliGem::Team.new_from_table(team)}
   end
 
+  def method_name
+
+  end
+
 end
 
 ###### Possibly skip team.phone and team.stadium ######
