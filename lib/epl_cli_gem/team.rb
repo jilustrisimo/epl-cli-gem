@@ -37,16 +37,18 @@ class EplCliGem::Team
   end
 
   def doc
-    sleep 5
     @doc ||= Nokogiri::HTML(open(self.url))
   end
 
+  def stadium_url
+    @stadium_url ||= Nokogiri::HTML(open(self.url.gsub("overview", "stadium")))
+  end
+
   def website
-    binding.pry
     @website ||= doc.xpath("//div[@class='website']/a").text
   end
 
-  # def stadium
-  #   @stadium ||=
-  # end
+  def stadium
+    @stadium ||= stadium_url.css("div.articleTab p[4]").text.gsub("Stadium address: ", "")
+  end
 end
