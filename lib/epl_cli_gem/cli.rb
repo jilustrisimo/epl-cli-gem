@@ -6,7 +6,7 @@ class EplCliGem::CLI
   end
 
   def list_teams
-    puts "\n---------------Current League Table---------------"
+    puts "\n---------------Current League Table------------------"
     puts "Position    Team         Pl         GD        Pts"
     @teams = EplCliGem::Team.sorted
     @teams.each.with_index(1) do |team, i|
@@ -42,10 +42,15 @@ class EplCliGem::CLI
     puts "\n--------------#{team.name}-----------------"
     puts "Position:               #{team.rank}"
     puts "Points:                 #{team.points}"
-    puts "Stadium Address:        #{nil}"
-    puts "Phone:                  #{nil}"
+    puts "Games Played:           #{team.games_played}"
+    puts "Won:                    #{team.won}"
+    puts "Drawn:                  #{team.drawn}"
+    puts "Lost:                   #{team.lost}"
+    puts "Goal Difference:        #{team.goal_diff}"
     puts "Website:                #{team.website}\n\n"
-    puts "\n------------------Team News----------------"
+    puts "Next Match:             #{team.match_date}"
+    puts "               #{team.team_1} |#{team.time}| #{team.team_2}\n\n"
+    puts "\n------------------Latest Club News----------------"
     team.club_news
 
   end

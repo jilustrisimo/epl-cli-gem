@@ -1,9 +1,8 @@
 class EplCliGem::Team
 
-  attr_accessor :name, :rank, :stadium, :url, :website, :games_played, :goal_diff, :points
+  attr_accessor :name, :rank, :stadium, :url, :website, :games_played, :goal_diff, :points, :won, :drawn, :lost, :match_date, :team_1, :team_2, :time
 
   @@all = []
-  @news = []
 
   def self.new_from_table(team)
 
@@ -12,19 +11,33 @@ class EplCliGem::Team
       team.css("span.value").text,
       "https://www.premierleague.com#{team.css("a").attribute("href").text}",
       team.css("td[4]").text,
+      team.css("td[5]").text,
+      team.css("td[6]").text,
+      team.css("td[7]").text,
       team.css("td[10]").text.strip,
-      team.css("td.points").text
+      team.css("td.points").text,
+      team.css("td.nextMatchCol span.matchInfo").text,
+      team.css("td.nextMatchCol span.teamName")[0].text,
+      team.css("td.nextMatchCol span.teamName")[1].text,
+      team.css("td.nextMatchCol time").text
       )
 
   end
 
-  def initialize(name=nil, rank=nil, url=nil, games_played=nil, goal_diff=nil, points=nil)
+  def initialize(name=nil, rank=nil, url=nil, games_played=nil, won=nil, drawn=nil, lost=nil, goal_diff=nil, points=nil, match_date=nil, team_1=nil, team_2=nil, time=nil)
     @name = name
     @rank = rank
     @url = url
     @games_played = games_played
+    @won = won
+    @drawn = drawn
+    @lost = lost
     @goal_diff = goal_diff
     @points = points
+    @match_date = match_date
+    @team_1 = team_1
+    @team_2 = team_2
+    @time = time
     @@all << self
   end
 
@@ -38,6 +51,7 @@ class EplCliGem::Team
   end
 
   def doc
+    binding.pry
     @doc ||= Nokogiri::HTML(open(self.url))
   end
 
@@ -46,9 +60,6 @@ class EplCliGem::Team
   end
 
   def club_news
-    ##titles: doc.xpath("//section[@class='mainWidget latestFeatures '][1]/ul[@class='block-list-4']/li/a[@class='thumbnail']/figure/figcaption/span[@class='title']").text
-
-    ##links:doc.at_css("section.mainWidget.latestFeatures ul li a").attribute("href").value
     news = doc.css("div.sidebarPush section")[1].css("li")
     news.each do |li|
       puts "Title:"
