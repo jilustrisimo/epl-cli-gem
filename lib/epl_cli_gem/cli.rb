@@ -61,3 +61,14 @@ private
   end
 
 end
+
+
+# [4] pry(#<EplCliGem::Team>)> doc.xpath("//div[@class='day'][1]/time").text
+# => ""
+# [5] pry(#<EplCliGem::Team>)> doc.xpath("//div[@class='fixturesAbridged matchListContainer']/div[@class='day'][1]/time").text
+# => ""
+# [6] pry(#<EplCliGem::Team>)> doc.xpath("//div[@class='fixturesAbridged matchListContainer']/div[@class='day'][1]/time")
+# => []
+# [7] pry(#<EplCliGem::Team>)> doc.css("div.fixturesAbridged.matchListContainer div.day time").text
+
+Nokogiri::HTML(open("https://www.premierleague.com/clubs"))
