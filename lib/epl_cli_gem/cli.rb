@@ -39,11 +39,12 @@ class EplCliGem::CLI
   end
 
   def print_team(team)
-    puts "\n-------------------#{team.name}----------------------"
-    puts "Position:           #{team.rank}"
-    puts "Points:             #{team.points}"
-    puts "Stadium:            #{team.stadium}"
-    puts "Website:            #{team.website}\n\n"
+    puts "\n--------------#{team.name}-----------------"
+    puts "Position:               #{team.rank}"
+    puts "Points:                 #{team.points}"
+    puts "Stadium Address:        #{team.stadium}"
+    puts "Phone:                  #{team.phone}"
+    puts "Website:                #{team.website}\n\n"
   end
 
   def bye

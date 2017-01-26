@@ -1,6 +1,6 @@
 class EplCliGem::Team
 
-  attr_accessor :name, :rank, :stadium, :url, :website, :games_played, :goal_diff, :points
+  attr_accessor :name, :rank, :stadium, :url, :website, :games_played, :goal_diff, :points, :phone
 
   @@all = []
 
@@ -41,6 +41,7 @@ class EplCliGem::Team
   end
 
   def stadium_url
+    sleep 3
     @stadium_url ||= Nokogiri::HTML(open(self.url.gsub("overview", "stadium")))
   end
 
@@ -51,4 +52,10 @@ class EplCliGem::Team
   def stadium
     @stadium ||= stadium_url.css("div.articleTab p[4]").text.gsub("Stadium address: ", "")
   end
+
+  def phone
+    binding.pry
+    @phone ||= stadium_url.css("div.articleTab p[5]").text.gsub("Phone: ", "")
+  end
+
 end
