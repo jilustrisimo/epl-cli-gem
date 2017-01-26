@@ -45,7 +45,7 @@ class EplCliGem::CLI
     puts "Stadium Address:        #{nil}"
     puts "Phone:                  #{nil}"
     puts "Website:                #{team.website}\n\n"
-    puts "\n---------------Team News-------------------"
+    puts "\n------------------Team News----------------"
     team.club_news
 
   end
