@@ -1,6 +1,7 @@
 class EplCliGem::CLI
 
   def call
+    EplCliGem::Scraper.new.make_teams
     list_teams
   end
 
@@ -9,8 +10,9 @@ class EplCliGem::CLI
     puts "Position    Team         Pl         GD        Pts"
     @teams = EplCliGem::Team.sorted
     @teams.each.with_index(1) do |team, i|
-      puts "   #{i}  #{team.name}  #{team.games_played}  -  #{team.goal_diff}  -  #{team.points}"
+      puts "   #{i}      #{team.name}             #{team.games_played}   #{team.goal_diff}    #{team.points}"
     end
+    puts ""
     ask_for_team
   end
 
