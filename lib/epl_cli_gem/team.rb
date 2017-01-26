@@ -15,18 +15,6 @@ class EplCliGem::Team
       team.css("td.points").text
       )
 
-    # team_2 = self.new
-    # team_2.name = "Arsenal"
-    # team_2.rank = "2"
-    # team_2.stadium = "Emirates Stadium"
-    # team_2.url = "https://www.premierleague.com/clubs/1/Arsenal/overview"
-    # team_2.website = "https://www.arsenal.com/"
-    # team_2.games_played = "22"
-    # team_2.goal_diff = "+27"
-    # team_2.points = "47"
-    #
-    # @@all << team_2
-    # @@all << team_1
   end
 
   def initialize(name=nil, rank=nil, url=nil, games_played=nil, goal_diff=nil, points=nil)
@@ -45,7 +33,20 @@ class EplCliGem::Team
   end
 
   def self.sorted
-    @@all.sort_by!{|team| team.rank}
+    @@all.sort_by!{|team| team.rank.to_i}
   end
 
+  def doc
+    sleep 5
+    @doc ||= Nokogiri::HTML(open(self.url))
+  end
+
+  def website
+    binding.pry
+    @website ||= doc.xpath("//div[@class='website']/a").text
+  end
+
+  # def stadium
+  #   @stadium ||=
+  # end
 end
