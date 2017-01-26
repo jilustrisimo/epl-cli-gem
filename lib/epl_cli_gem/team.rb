@@ -41,7 +41,6 @@ class EplCliGem::Team
   end
 
   def stadium_url
-    sleep 3
     @stadium_url ||= Nokogiri::HTML(open(self.url.gsub("overview", "stadium")))
   end
 
@@ -54,8 +53,13 @@ class EplCliGem::Team
   end
 
   def phone
+    # @phone ||= stadium_url.css("div.articleTab p[5]").text.gsub("Phone: ", "")
+    @phone ||= stadium_url.css("div.articleTab p[5]").text.gsub(/[a-zA-Z]\S/, "")
     binding.pry
-    @phone ||= stadium_url.css("div.articleTab p[5]").text.gsub("Phone: ", "")
   end
 
 end
+
+# if stadium_url.css("div").attribute("data-cli-tab") == "Stadium Information"
+#   stadium_url.css("div.articleTab p[4]").text.gsub("Stadium address: ", "")
+# end
