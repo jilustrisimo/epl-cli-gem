@@ -32,7 +32,7 @@ class EplCliGem::Team
     @lost = lost
     @goal_diff = goal_diff
     @points = points
-    @@all << self
+    @@all << self unless @@all.include?(self.name)
   end
 
   def self.all

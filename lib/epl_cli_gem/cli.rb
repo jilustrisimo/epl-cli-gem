@@ -2,20 +2,24 @@ class EplCliGem::CLI
 
   def call
     EplCliGem::Scraper.new.make_teams
+    puts "Welcome the the English Premier League CLI gem\n\n"
+    puts "If the output looks messy please\nmake sure your CLI is long enough.\n\n"
+    sleep 3
     start
   end
 
   def start
     list_teams
-    puts "You can always exit the program by typing EXIT.\n\n"
+    puts "*You can always exit the program by typing EXIT.*\n\n"
     puts "Which team would you like more information on?"
     puts "Please select by team name or current position."
     puts "(Not case sensitive)"
     input = gets.strip
 
+
     ask_for_team(input)
 
-    puts "Would you like to learn more about another team?\nYes\nNo"
+    puts "Type Yes to learn more about another team\n otherwise enter any other key to exit"
     input = gets.strip
 
     input.downcase == 'y' || input.downcase == 'yes' ? start : bye
@@ -34,6 +38,7 @@ class EplCliGem::CLI
     :headings => ['POSN', 'Team', 'PL', 'GD', 'Pts'], :rows => rows
     table.align_column 0, :center
 
+    puts ""
     puts table
     puts ""
   end
@@ -70,6 +75,7 @@ class EplCliGem::CLI
 
     table = Terminal::Table.new :title => "#{team.name}", :rows => rows
 
+    puts ""
     puts table
 
     rows.clear
