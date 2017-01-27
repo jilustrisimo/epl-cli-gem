@@ -9,9 +9,16 @@ class EplCliGem::CLI
     list_teams
     puts "Which team would you like more information on?"
     puts "Please select by team name or current rank."
+    puts "(Not case sensitive)"
     input = gets.strip
 
     ask_for_team(input)
+
+    puts "Would you like to learn more about another team?\nYes\nNo"
+    input = gets.strip
+    # if input.downcase == 'y' || input.downcase == 'yes' then list_teams else bye end
+    input.downcase == 'y' || input.downcase == 'yes' ? list_teams : bye
+
   end
 
   def list_teams
@@ -32,18 +39,17 @@ class EplCliGem::CLI
 
     if input.to_i == 0
       team = @teams.find{|team| team.name.downcase == input.downcase}
-      if team != nil then print_team(team) else spell_check end
+      # if team != nil then print_team(team) else spell_check end
+      team != nil ? print_team(team) : spell_check
+
     elsif input.to_i.between?(1, 20)
       team = @teams.find{|team| team.rank == input}
       print_team(team)
+
     else
       spell_check
     end
 
-    puts "Would you like to learn more about another team?\nYes\nNo"
-    more = gets.strip
-    # if more.downcase == 'y' || more.downcase == 'yes' then list_teams else bye end
-    more.downcase == 'y' || more.downcase == 'yes' ? list_teams : bye
   end
 
   def print_team(team)
@@ -59,19 +65,21 @@ class EplCliGem::CLI
     puts "Next Match:             #{team.match_date}"
     puts "               #{team.team_1} |#{team.time}| #{team.team_2}\n\n"
     puts "\n------------------Latest Club News----------------"
+
     team.club_news
 
   end
 
   def bye
-    puts "For Club and Country"
-    sleep 2
+    puts "\nFor Club and Country"
+    sleep 2.5
     abort
   end
 
 private
 
   def spell_check
+    sleep 1
     puts "\nInvalid Entry, please check spelling or \nselect a number between 1 and 20.\n\n"
     ask_for_team
   end

@@ -1,25 +1,25 @@
 class EplCliGem::Team
 
-  attr_accessor :name, :rank, :stadium, :url, :website, :games_played, :goal_diff, :points, :won, :drawn, :lost, :match_date, :team_1, :team_2, :time
+  attr_accessor :name, :rank, :url, :website, :games_played, :goal_diff, :points, :won, :drawn, :lost, :match_date, :team_1, :team_2, :time
 
   @@all = []
 
   def self.new_from_table(team)
 
     self.new(
-      team.css("span.long").text,
-      team.css("span.value").text,
-      "https://www.premierleague.com#{team.css("a").attribute("href").text}",
-      team.css("td[4]").text,
-      team.css("td[5]").text,
-      team.css("td[6]").text,
-      team.css("td[7]").text,
-      team.css("td[10]").text.strip,
-      team.css("td.points").text,
-      team.css("td.nextMatchCol span.matchInfo").text,
-      team.css("td.nextMatchCol span.teamName")[0].text,
-      team.css("td.nextMatchCol span.teamName")[1].text,
-      team.css("td.nextMatchCol time").text
+      team.css("span.long").text, #=> team.name
+      team.css("span.value").text, #=> team.rank
+      "https://www.premierleague.com#{team.css("a").attribute("href").text}", #=> team.url
+      team.css("td[4]").text, #=> team.games_played
+      team.css("td[5]").text, #=> team.won
+      team.css("td[6]").text, #=> team.drawn
+      team.css("td[7]").text, #=> team.lost
+      team.css("td[10]").text.strip, #=> team.goal_diff
+      team.css("td.points").text, #=> team.points
+      team.css("td.nextMatchCol span.matchInfo").text, #=> team.match_date
+      team.css("td.nextMatchCol span.teamName")[0].text, #=> team.team_1
+      team.css("td.nextMatchCol span.teamName")[1].text, #=> team.team_2
+      team.css("td.nextMatchCol time").text #=> team.time
       )
 
   end
@@ -65,7 +65,7 @@ class EplCliGem::Team
       puts "#{li.css('span.title').text}\n\n"
       puts "Link:"
       puts "#{li.css('a').attribute('href').value}\n\n"
-      puts "- - - - - - - - - - - "
+      puts "- - - - - - - - - - - - - - - - - "
     end
   end
 end
