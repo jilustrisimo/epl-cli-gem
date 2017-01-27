@@ -34,6 +34,7 @@ class EplCliGem::CLI
     table.align_column 0, :center
 
     puts table
+    puts ""
   end
 
   def ask_for_team(input)
@@ -52,21 +53,28 @@ class EplCliGem::CLI
   end
 
   def print_team(team)
-    binding.pry
+
     rows = []
 
     rows << ['Position', team.rank]
     rows << ['Points', team.points]
     rows << ['Games Played', team.games_played]
-    rows << ['Won', team.won]
+    rows << ["", team.won]
     rows << ['Drawn', team.drawn]
     rows << ['Lost', team.lost]
     rows << ['Goal Difference', team.goal_diff]
     rows << ['Team Website', team.website]  ##### << maybe move
 
-    table = ::Terminal::Table.new :title => "#{team.name}", :rows => rows
+    table = Terminal::Table.new :title => "#{team.name}", :rows => rows
 
     puts table
+
+    rows.clear
+    rows << [team.team_1, team.time, team.team_2]
+
+    next_match = Terminal::Table.new :title => "Next Match\n#{team.match_date}", :rows => rows
+
+    puts next_match
   end
   # def print_team(team)
   #   puts "                     #{team.name}\n\n"
