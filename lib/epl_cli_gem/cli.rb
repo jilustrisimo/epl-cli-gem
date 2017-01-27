@@ -26,7 +26,7 @@ class EplCliGem::CLI
 
     @teams = EplCliGem::Team.sorted
     @teams.each.with_index(1) do |team, i|
-      rows << %w(i team.name team.games_played team.goal_diff team.points)
+      rows << [i, team.name, team.games_played, team.goal_diff, team.points]
     end
 
     table = Terminal::Table.new :title => "Current League Table",
@@ -55,14 +55,18 @@ class EplCliGem::CLI
     binding.pry
     rows = []
 
-    rows << ['Position', '#{team.rank}']
-    rows << ['Points', '#{team.}']
-    rows << ['Games Played', '#{team.}']
-    rows << ['Won', '#{team.}']
-    rows << ['Drawn', '#{team.}']
-    rows << ['Lost', '#{team.}']
-    rows << ['Goal Difference', '#{team.}']
-    rows << ['Team Website', '#{team.}']
+    rows << ['Position', team.rank]
+    rows << ['Points', team.points]
+    rows << ['Games Played', team.games_played]
+    rows << ['Won', team.won]
+    rows << ['Drawn', team.drawn]
+    rows << ['Lost', team.lost]
+    rows << ['Goal Difference', team.goal_diff]
+    rows << ['Team Website', team.website]  ##### << maybe move
+
+    table = ::Terminal::Table.new :title => "#{team.name}", :rows => rows
+
+    puts table
   end
   # def print_team(team)
   #   puts "                     #{team.name}\n\n"
@@ -88,14 +92,14 @@ class EplCliGem::CLI
 
   def bye
     puts "\nFor Club and Country"
-    sleep 1.5
+    sleep 1
     abort
   end
 
   def spell_check
-    sleep 1
     puts "\nInvalid Entry, please check spelling or \nselect a number between 1 and 20.\n\n"
-    ask_for_team
+    sleep 2
+    start
   end
 
 end
