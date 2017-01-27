@@ -22,15 +22,25 @@ class EplCliGem::CLI
   end
 
   def list_teams
-    puts "\n--------------------Current League Table--------------------"
-    puts "Position    Team         Pl         GD        Pts"
+    binding.pry
+    rows = []
     @teams = EplCliGem::Team.sorted
     @teams.each.with_index(1) do |team, i|
-      puts "   #{i}      #{team.name}      #{team.games_played}   #{team.goal_diff}    #{team.points}"
+      rows << [i, team.name, team.games_played, team.goal_diff, team.points]
     end
-    puts ""
-    # ask_for_team
+    table = Terminal::Table.new :title => "Current League Table", :headings => ['Position', 'Team', 'PL', 'GD', 'Pts'], :rows => rows
   end
+
+  # def list_teams
+  #   puts "\n--------------------Current League Table--------------------"
+  #   puts "Position    Team         Pl         GD        Pts"
+  #   @teams = EplCliGem::Team.sorted
+  #   @teams.each.with_index(1) do |team, i|
+  #     puts "   #{i}      #{team.name}      #{team.games_played}   #{team.goal_diff}    #{team.points}"
+  #   end
+  #   puts ""
+  #   # ask_for_team
+  # end
 
   def ask_for_team(input)
     # puts "Which team would you like more information on?"
