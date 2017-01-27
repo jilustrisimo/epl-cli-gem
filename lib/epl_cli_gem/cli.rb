@@ -22,7 +22,7 @@ class EplCliGem::CLI
   end
 
   def list_teams
-    puts "\n---------------Current League Table------------------"
+    puts "\n--------------------Current League Table--------------------"
     puts "Position    Team         Pl         GD        Pts"
     @teams = EplCliGem::Team.sorted
     @teams.each.with_index(1) do |team, i|
@@ -51,9 +51,10 @@ class EplCliGem::CLI
     end
 
   end
-
+# 20
   def print_team(team)
-    puts "\n------------------#{team.name}--------------------"
+    puts "                     #{team.name}\n\n"
+    # puts "-------------------------|-------------------------\n\n"
     puts "Position:               #{team.rank}"
     puts "Points:                 #{team.points}"
     puts "Games Played:           #{team.games_played}"
@@ -62,10 +63,12 @@ class EplCliGem::CLI
     puts "Lost:                   #{team.lost}"
     puts "Goal Difference:        #{team.goal_diff}"
     puts "Website:                #{team.website}\n\n"
-    puts "--------------------Next Match----------------------- "
-    puts "               #{team.match_date}"
-    puts "               #{team.team_1} |#{team.time}| #{team.team_2}\n\n"
-    puts "\n------------------Latest Club News----------------"
+    puts "                     Next Match"
+    puts "-------------------------|-------------------------\n\n"
+    puts "              #{team.match_date}"
+    puts "                   #{team.team_1} #{team.time} #{team.team_2}\n\n"
+    puts "                 Latest Club News"
+    puts "-------------------------|-------------------------\n\n"
 
     team.club_news
 
@@ -73,7 +76,7 @@ class EplCliGem::CLI
 
   def bye
     puts "\nFor Club and Country"
-    sleep 2.5
+    sleep 1.5
     abort
   end
 

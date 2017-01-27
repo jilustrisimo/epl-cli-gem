@@ -7,7 +7,7 @@ class EplCliGem::Team
   def self.new_from_table(team)
 
     self.new(
-      team, #=> data from scrape, needed for various methods requring scraped data
+      team, #=> team.nodeset: data from scrape, needed for various methods requring scraped data
       team.css("span.long").text, #=> team.name
       team.css("span.value").text, #=> team.rank
       "https://www.premierleague.com#{team.css("a").attribute("href").text}", #=> team.url
@@ -17,16 +17,11 @@ class EplCliGem::Team
       team.css("td[7]").text, #=> team.lost
       team.css("td[10]").text.strip, #=> team.goal_diff
       team.css("td.points").text #=> team.points
-      # team.css("td.nextMatchCol span.matchInfo").text, #=> team.match_date
-      # team.css("td.nextMatchCol span.teamName")[0],#.text, #=> team.team_1
-      # team.css("td.nextMatchCol span.teamName")[1],#.text, #=> team.team_2
-      # team.css("td.nextMatchCol time")#.text #=> team.time
       )
 
   end
 
   def initialize(team, name=nil, rank=nil, url=nil, games_played=nil, won=nil, drawn=nil, lost=nil, goal_diff=nil, points=nil)
-    # match_date="TBD", team_1="TBD", team_2="TBD", time="TBD"
     @nodeset = team
     @name = name
     @rank = rank
@@ -37,10 +32,6 @@ class EplCliGem::Team
     @lost = lost
     @goal_diff = goal_diff
     @points = points
-    # @match_date = match_date
-    # @team_1 = team_1
-    # @team_2 = team_2
-    # @time = time
     @@all << self
   end
 
@@ -57,7 +48,7 @@ class EplCliGem::Team
     if @nodeset.css("td.nextMatchCol span.matchInfo").text != ""
       @match_date = @nodeset.css("td.nextMatchCol span.matchInfo").text
     else
-      "TBD"
+      "To Be Determined"
     end
   end
 
