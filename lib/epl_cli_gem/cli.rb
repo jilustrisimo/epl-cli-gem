@@ -7,6 +7,7 @@ class EplCliGem::CLI
 
   def start
     list_teams
+    puts "You can always exit the program by typing EXIT.\n\n"
     puts "Which team would you like more information on?"
     puts "Please select by team name or current position."
     puts "(Not case sensitive)"
@@ -39,7 +40,10 @@ class EplCliGem::CLI
 
   def ask_for_team(input)
 
-    if input.to_i == 0
+    if input.downcase == 'exit'
+      bye
+
+    elsif input.to_i == 0
       team = @teams.find{|team| team.name.downcase == input.downcase}
       team != nil ? print_team(team) : spell_check
 
@@ -63,7 +67,6 @@ class EplCliGem::CLI
     rows << ['Drawn', team.drawn]
     rows << ['Lost', team.lost]
     rows << ['Goal Difference', team.goal_diff]
-    # rows << ['Team Website', team.website]  ##### << maybe move
 
     table = Terminal::Table.new :title => "#{team.name}", :rows => rows
 
@@ -72,7 +75,10 @@ class EplCliGem::CLI
     rows.clear
     rows << [team.team_1, team.time, team.team_2]
 
-    next_match = Terminal::Table.new :title => "Next Match\n*#{team.match_date}*", :rows => rows
+    next_match = Terminal::Table.new :title => "Next Match\n#{team.match_date}", :rows => rows
+    next_match.align_column 0, :center
+    next_match.align_column 1, :center
+    next_match.align_column 2, :center
 
     puts next_match
 

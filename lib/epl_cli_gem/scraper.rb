@@ -5,7 +5,6 @@ class EplCliGem::Scraper
   end
 
   def scrape_table
-    # sleep 3
     self.get_page.css("tbody.tableBodyContainer tr")
   end
 
