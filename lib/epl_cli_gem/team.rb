@@ -1,11 +1,12 @@
 class EplCliGem::Team
 
-  attr_accessor :name, :rank, :url, :website, :games_played, :goal_diff, :points, :won, :drawn, :lost, :match_date, :team_1, :team_2, :time
+  attr_accessor :name, :rank, :url, :website, :games_played, :goal_diff, :points, :won, :drawn, :lost
+  attr_reader   :match_date, :team_1, :team_2, :time
 
   @@all = []
 
   def self.new_from_table(team)
-    binding.pry
+    puts "4"
     self.new(
       team.css("span.long").text, #=> team.name
       team.css("span.value").text, #=> team.rank
@@ -17,14 +18,15 @@ class EplCliGem::Team
       team.css("td[10]").text.strip, #=> team.goal_diff
       team.css("td.points").text, #=> team.points
       team.css("td.nextMatchCol span.matchInfo").text, #=> team.match_date
-      team.css("td.nextMatchCol span.teamName")[0].text, #=> team.team_1
-      team.css("td.nextMatchCol span.teamName")[1].text, #=> team.team_2
-      team.css("td.nextMatchCol time").text #=> team.time
+      team.css("td.nextMatchCol span.teamName")[0],#.text, #=> team.team_1
+      team.css("td.nextMatchCol span.teamName")[1],#.text, #=> team.team_2
+      team.css("td.nextMatchCol time")#.text #=> team.time
       )
+      puts "5"
 
   end
 
-  def initialize(name=nil, rank=nil, url=nil, games_played=nil, won=nil, drawn=nil, lost=nil, goal_diff=nil, points=nil, match_date=nil, team_1=nil, team_2=nil, time=nil)
+  def initialize(name=nil, rank=nil, url=nil, games_played=nil, won=nil, drawn=nil, lost=nil, goal_diff=nil, points=nil, match_date="TBD", team_1="TBD", team_2="TBD", time="TBD")
     @name = name
     @rank = rank
     @url = url
@@ -34,11 +36,28 @@ class EplCliGem::Team
     @lost = lost
     @goal_diff = goal_diff
     @points = points
-    @match_date = match_date
-    @team_1 = team_1
-    @team_2 = team_2
-    @time = time
+    # @match_date = match_date
+    # @team_1 = team_1
+    # @team_2 = team_2
+    # @time = time
     @@all << self
+  end
+
+  def match_date=(match_date)
+    # binding.pry
+    @match_date = match_date.text if team.css("td.nextMatchCol span.matchInfo").text != ""
+  end
+
+  def team_1=(team_1)
+    @team_1 = team_1.text if team.css("td.nextMatchCol span.teamName")[0] != nil
+  end
+
+  def team_2=(team_2)
+    @team_2 = team_2.text if team.css("td.nextMatchCol span.teamName")[1] != nil
+  end
+
+  def time=(time)
+    @time = time.text if team.css("td.nextMatchCol time").text != ""
   end
 
 
