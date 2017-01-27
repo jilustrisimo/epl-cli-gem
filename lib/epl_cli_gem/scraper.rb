@@ -10,12 +10,8 @@ class EplCliGem::Scraper
   end
 
   def make_teams
-    puts "1"
     teams = scrape_table.select{|tr| tr['data-compseason'] == "54"}
-    puts "2"
-    binding.pry
     teams.each{|team| EplCliGem::Team.new_from_table(team)}
-    puts "6"
   end
 
 end

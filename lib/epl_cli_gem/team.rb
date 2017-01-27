@@ -1,13 +1,13 @@
 class EplCliGem::Team
 
   attr_accessor :name, :rank, :url, :website, :games_played, :goal_diff, :points, :won, :drawn, :lost
-  attr_reader   :match_date, :team_1, :team_2, :time
 
   @@all = []
 
   def self.new_from_table(team)
-    puts "4"
+
     self.new(
+      team, #=> data from scrape, needed for various methods requring scraped data
       team.css("span.long").text, #=> team.name
       team.css("span.value").text, #=> team.rank
       "https://www.premierleague.com#{team.css("a").attribute("href").text}", #=> team.url
@@ -16,17 +16,18 @@ class EplCliGem::Team
       team.css("td[6]").text, #=> team.drawn
       team.css("td[7]").text, #=> team.lost
       team.css("td[10]").text.strip, #=> team.goal_diff
-      team.css("td.points").text, #=> team.points
-      team.css("td.nextMatchCol span.matchInfo").text, #=> team.match_date
-      team.css("td.nextMatchCol span.teamName")[0],#.text, #=> team.team_1
-      team.css("td.nextMatchCol span.teamName")[1],#.text, #=> team.team_2
-      team.css("td.nextMatchCol time")#.text #=> team.time
+      team.css("td.points").text #=> team.points
+      # team.css("td.nextMatchCol span.matchInfo").text, #=> team.match_date
+      # team.css("td.nextMatchCol span.teamName")[0],#.text, #=> team.team_1
+      # team.css("td.nextMatchCol span.teamName")[1],#.text, #=> team.team_2
+      # team.css("td.nextMatchCol time")#.text #=> team.time
       )
-      puts "5"
 
   end
 
-  def initialize(name=nil, rank=nil, url=nil, games_played=nil, won=nil, drawn=nil, lost=nil, goal_diff=nil, points=nil, match_date="TBD", team_1="TBD", team_2="TBD", time="TBD")
+  def initialize(team, name=nil, rank=nil, url=nil, games_played=nil, won=nil, drawn=nil, lost=nil, goal_diff=nil, points=nil)
+    # match_date="TBD", team_1="TBD", team_2="TBD", time="TBD"
+    @nodeset = team
     @name = name
     @rank = rank
     @url = url
@@ -43,30 +44,39 @@ class EplCliGem::Team
     @@all << self
   end
 
-  def match_date=(match_date)
-    # binding.pry
-    @match_date = match_date.text if team.css("td.nextMatchCol span.matchInfo").text != ""
-  end
-
-  def team_1=(team_1)
-    @team_1 = team_1.text if team.css("td.nextMatchCol span.teamName")[0] != nil
-  end
-
-  def team_2=(team_2)
-    @team_2 = team_2.text if team.css("td.nextMatchCol span.teamName")[1] != nil
-  end
-
-  def time=(time)
-    @time = time.text if team.css("td.nextMatchCol time").text != ""
-  end
-
-
   def self.all
     @@all
   end
 
   def self.sorted
     @@all.sort_by!{|team| team.rank.to_i}
+  end
+
+  def match_date
+    # binding.pry
+    if @nodeset.css("td.nextMatchCol span.matchInfo").text != ""
+      @match_date = @nodeset.css("td.nextMatchCol span.matchInfo").text
+    else
+      "TBD"
+    end
+  end
+
+  def team_1
+    if @nodeset.css("td.nextMatchCol span.teamName")[0] != nil
+      @team_1 = @nodeset.css("td.nextMatchCol span.teamName")[0].text
+    end
+  end
+
+  def team_2
+    if @nodeset.css("td.nextMatchCol span.teamName")[1] != nil
+    @team_2 = @nodeset.css("td.nextMatchCol span.teamName")[1].text
+    end
+  end
+
+  def time
+    if @nodeset.css("td.nextMatchCol time").text != ""
+    @time = @nodeset.css("td.nextMatchCol time").text
+    end
   end
 
   def doc
