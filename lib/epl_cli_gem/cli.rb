@@ -59,11 +59,11 @@ class EplCliGem::CLI
     rows << ['Position', team.rank]
     rows << ['Points', team.points]
     rows << ['Games Played', team.games_played]
-    rows << ["", team.won]
+    rows << ['Won', team.won]
     rows << ['Drawn', team.drawn]
     rows << ['Lost', team.lost]
     rows << ['Goal Difference', team.goal_diff]
-    rows << ['Team Website', team.website]  ##### << maybe move
+    # rows << ['Team Website', team.website]  ##### << maybe move
 
     table = Terminal::Table.new :title => "#{team.name}", :rows => rows
 
@@ -72,31 +72,12 @@ class EplCliGem::CLI
     rows.clear
     rows << [team.team_1, team.time, team.team_2]
 
-    next_match = Terminal::Table.new :title => "Next Match\n#{team.match_date}", :rows => rows
+    next_match = Terminal::Table.new :title => "Next Match\n*#{team.match_date}*", :rows => rows
 
     puts next_match
+
+    team.club_news
   end
-  # def print_team(team)
-  #   puts "                     #{team.name}\n\n"
-  #   # puts "-------------------------|-------------------------\n\n"
-  #   puts "Position:               #{team.rank}"
-  #   puts "Points:                 #{team.points}"
-  #   puts "Games Played:           #{team.games_played}"
-  #   puts "Won:                    #{team.won}"
-  #   puts "Drawn:                  #{team.drawn}"
-  #   puts "Lost:                   #{team.lost}"
-  #   puts "Goal Difference:        #{team.goal_diff}"
-  #   puts "Website:                #{team.website}\n\n"
-  #   puts "                     Next Match"
-  #   puts "-------------------------|-------------------------\n\n"
-  #   puts "              #{team.match_date}"
-  #   puts "                   #{team.team_1} #{team.time} #{team.team_2}\n\n"
-  #   puts "                 Latest Club News"
-  #   puts "-------------------------|-------------------------\n\n"
-  #
-  #   team.club_news
-  #
-  # end
 
   def bye
     puts "\nFor Club and Country"

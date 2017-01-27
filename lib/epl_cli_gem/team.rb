@@ -44,27 +44,31 @@ class EplCliGem::Team
   end
 
   def match_date
-    # binding.pry
+
     if @nodeset.css("td.nextMatchCol span.matchInfo").text != ""
       @match_date = @nodeset.css("td.nextMatchCol span.matchInfo").text
+
     else
       "To Be Determined"
     end
   end
 
   def team_1
+
     if @nodeset.css("td.nextMatchCol span.teamName")[0] != nil
       @team_1 = @nodeset.css("td.nextMatchCol span.teamName")[0].text
     end
   end
 
   def team_2
+
     if @nodeset.css("td.nextMatchCol span.teamName")[1] != nil
     @team_2 = @nodeset.css("td.nextMatchCol span.teamName")[1].text
     end
   end
 
   def time
+
     if @nodeset.css("td.nextMatchCol time").text != ""
     @time = @nodeset.css("td.nextMatchCol time").text
     end
@@ -79,14 +83,19 @@ class EplCliGem::Team
   end
 
   def club_news
-    news = doc.css("div.sidebarPush section")[1].css("li")
-    news.each do |li|
-      puts "Title:"
-      puts "#{li.css('span.title').text}\n\n"
-      puts "Link:"
-      puts "#{li.css('a').attribute('href').value}\n\n"
-      puts "- - - - - - - - - - - - - - - - - "
-    end
+
+    rows = []
+
+      news = doc.css("div.sidebarPush section")[1].css("li")
+      news.each do |li|
+        rows << [li.css('span.title').text]
+        rows << :separator
+      end
+
+      table = Terminal::Table.new :title => "Latest Club News\nRead more at #{self.website}", :rows => rows
+      table.align_column 0, :center
+
+      puts table
   end
 end
 
