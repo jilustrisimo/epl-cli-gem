@@ -51,7 +51,6 @@ class EplCliGem::Team
   end
 
   def doc
-    binding.pry
     @doc ||= Nokogiri::HTML(open(self.url))
   end
 
@@ -69,6 +68,7 @@ class EplCliGem::Team
       puts "- - - - - - - - - - - "
     end
   end
+end
 
 
 
@@ -101,7 +101,7 @@ class EplCliGem::Team
   #   binding.pry
   # end
 
-end
+
 
 # if stadium_url.css("div").attribute("data-cli-tab") == "Stadium Information"
 #   stadium_url.css("div.articleTab p[4]").text.gsub("Stadium address: ", "")

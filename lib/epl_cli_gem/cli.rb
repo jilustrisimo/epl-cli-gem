@@ -2,7 +2,16 @@ class EplCliGem::CLI
 
   def call
     EplCliGem::Scraper.new.make_teams
+    start
+  end
+
+  def start
     list_teams
+    puts "Which team would you like more information on?"
+    puts "Please select by team name or current rank."
+    input = gets.strip
+
+    ask_for_team(input)
   end
 
   def list_teams
@@ -13,33 +22,32 @@ class EplCliGem::CLI
       puts "   #{i}      #{team.name}      #{team.games_played}   #{team.goal_diff}    #{team.points}"
     end
     puts ""
-    ask_for_team
+    # ask_for_team
   end
 
-  def ask_for_team
-    puts "Which team would you like more info on?"
-    puts "You can select by rank or team name."
-    input = gets.strip
+  def ask_for_team(input)
+    # puts "Which team would you like more information on?"
+    # puts "You can select by rank or team name."
+    # input = gets.strip
 
     if input.to_i == 0
       team = @teams.find{|team| team.name.downcase == input.downcase}
       if team != nil then print_team(team) else spell_check end
-
     elsif input.to_i.between?(1, 20)
       team = @teams.find{|team| team.rank == input}
       print_team(team)
-
     else
       spell_check
     end
 
     puts "Would you like to learn more about another team?\nYes\nNo"
     more = gets.strip
-    if more.downcase == 'y' || more.downcase == 'yes' then list_teams else bye end
+    # if more.downcase == 'y' || more.downcase == 'yes' then list_teams else bye end
+    more.downcase == 'y' || more.downcase == 'yes' ? list_teams : bye
   end
 
   def print_team(team)
-    puts "\n--------------#{team.name}-----------------"
+    puts "\n------------------#{team.name}--------------------"
     puts "Position:               #{team.rank}"
     puts "Points:                 #{team.points}"
     puts "Games Played:           #{team.games_played}"
@@ -64,7 +72,7 @@ class EplCliGem::CLI
 private
 
   def spell_check
-    puts "\nInvalid Entry, please check spelling or \nselect a # between 1 and 20.\n\n"
+    puts "\nInvalid Entry, please check spelling or \nselect a number between 1 and 20.\n\n"
     ask_for_team
   end
 

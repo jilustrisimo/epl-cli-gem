@@ -14,9 +14,3 @@ class EplCliGem::Scraper
   end
 
 end
-
-###### Possibly skip team.phone and team.stadium ######
-##### hours lost ######
-
-
-## possibly go higher up for stadium and phones
