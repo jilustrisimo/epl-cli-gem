@@ -6,9 +6,10 @@ class EplCliGem::CLI
   end
 
   def start
+    # puts "Welcome!\n\n"
     list_teams
     puts "Which team would you like more information on?"
-    puts "Please select by team name or current rank."
+    puts "Please select by team name or current position."
     puts "(Not case sensitive)"
     input = gets.strip
 
@@ -17,8 +18,7 @@ class EplCliGem::CLI
     puts "Would you like to learn more about another team?\nYes\nNo"
     input = gets.strip
     # if input.downcase == 'y' || input.downcase == 'yes' then list_teams else bye end
-    input.downcase == 'y' || input.downcase == 'yes' ? list_teams : bye
-
+    input.downcase == 'y' || input.downcase == 'yes' ? start : bye
   end
 
   def list_teams
@@ -62,7 +62,8 @@ class EplCliGem::CLI
     puts "Lost:                   #{team.lost}"
     puts "Goal Difference:        #{team.goal_diff}"
     puts "Website:                #{team.website}\n\n"
-    puts "Next Match:             #{team.match_date}"
+    puts "--------------------Next Match----------------------- "
+    puts "               #{team.match_date}"
     puts "               #{team.team_1} |#{team.time}| #{team.team_2}\n\n"
     puts "\n------------------Latest Club News----------------"
 
@@ -75,8 +76,6 @@ class EplCliGem::CLI
     sleep 2.5
     abort
   end
-
-private
 
   def spell_check
     sleep 1

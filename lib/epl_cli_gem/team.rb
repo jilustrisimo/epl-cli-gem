@@ -5,7 +5,7 @@ class EplCliGem::Team
   @@all = []
 
   def self.new_from_table(team)
-
+    binding.pry
     self.new(
       team.css("span.long").text, #=> team.name
       team.css("span.value").text, #=> team.rank
