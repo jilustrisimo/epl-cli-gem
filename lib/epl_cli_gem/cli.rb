@@ -2,9 +2,10 @@ class EplCliGem::CLI
 
   def call
     EplCliGem::Scraper.new.make_teams
+    puts ""
     puts "Welcome to the English Premier League CLI gem\n\n".colorize(:cyan)
     puts "If the output looks messy please\nmake sure your CLI is long enough.\n\n".colorize(:light_red).underline
-    sleep 3
+    sleep 2.25
     start
   end
 
@@ -22,7 +23,7 @@ class EplCliGem::CLI
 
     ask_for_team(input)
 
-    puts "Type #{yes} to learn more about another team\n otherwise enter any other key to #{eXit}"
+    puts "Type #{yes} to learn more about another team\n otherwise enter any other key to #{eXit}."
     input = gets.strip
 
     input.downcase == 'y' || input.downcase == 'yes' ? start : bye
@@ -33,11 +34,9 @@ class EplCliGem::CLI
     rows = []
 
     @teams = EplCliGem::Team.sorted
-
     @teams.each.with_index(1) do |team, i|
-      rows << [i, team.name.colorize(:blue), team.games_played.colorize(:blue), team.goal_diff.colorize(:blue), team.points.colorize(:blue).on_red]
+      rows << [i, team.name, team.games_played, team.goal_diff, team.points]
     end
-
 
     table = Terminal::Table.new :title => "Current League Table",
     :headings => ['POSN', 'Team', 'PL', 'GD', 'Pts'], :rows => rows
@@ -97,7 +96,10 @@ class EplCliGem::CLI
   end
 
   def bye
-    puts "\nFor Club and Country"
+    for_clu = "For Clu".colorize(:red).on_blue
+    b_and_C = "b and C".colorize(:light_white).on_blue
+    ountry = "ountry".colorize(:red).on_blue
+    puts "#{for_clu}#{b_and_C}#{ountry}"
     sleep 1
     abort
   end
