@@ -2,24 +2,27 @@ class EplCliGem::CLI
 
   def call
     EplCliGem::Scraper.new.make_teams
-    puts "Welcome the the English Premier League CLI gem\n\n"
-    puts "If the output looks messy please\nmake sure your CLI is long enough.\n\n"
+    puts "Welcome to the English Premier League CLI gem\n\n".colorize(:cyan)
+    puts "If the output looks messy please\nmake sure your CLI is long enough.\n\n".colorize(:light_red).underline
     sleep 3
     start
   end
 
   def start
+
+    eXit = "EXIT".colorize(:red).underline
+    yes = "Yes".colorize(:light_cyan)
     list_teams
-    puts "*You can always exit the program by typing EXIT.*\n\n"
+    puts "You can always exit the program by typing #{eXit}.\n\n"
     puts "Which team would you like more information on?"
     puts "Please select by team name or current position."
-    puts "(Not case sensitive)"
+    puts "(Not case sensitive)".colorize(:red)
     input = gets.strip
 
 
     ask_for_team(input)
 
-    puts "Type Yes to learn more about another team\n otherwise enter any other key to exit"
+    puts "Type #{yes} to learn more about another team\n otherwise enter any other key to #{eXit}"
     input = gets.strip
 
     input.downcase == 'y' || input.downcase == 'yes' ? start : bye
@@ -30,9 +33,11 @@ class EplCliGem::CLI
     rows = []
 
     @teams = EplCliGem::Team.sorted
+
     @teams.each.with_index(1) do |team, i|
-      rows << [i, team.name, team.games_played, team.goal_diff, team.points]
+      rows << [i, team.name.colorize(:blue), team.games_played.colorize(:blue), team.goal_diff.colorize(:blue), team.points.colorize(:blue).on_red]
     end
+
 
     table = Terminal::Table.new :title => "Current League Table",
     :headings => ['POSN', 'Team', 'PL', 'GD', 'Pts'], :rows => rows
@@ -98,7 +103,10 @@ class EplCliGem::CLI
   end
 
   def spell_check
-    puts "\nInvalid Entry, please check spelling or \nselect a number between 1 and 20.\n\n"
+    puts ""
+    puts "Invalid Entry, please check spelling".on_red
+    puts "or select a number between 1 and 20.".on_red
+    puts ""
     sleep 2
     start
   end
