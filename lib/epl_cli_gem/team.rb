@@ -99,8 +99,8 @@ class EplCliGem::Team
 
     rows = []
 
-      news = doc.css("div.sidebarPush section")[1].css("li")
-      news.each do |li|
+      @news ||= doc.css("div.sidebarPush section")[1].css("li")
+      @news.each do |li|
         rows << [li.css('span.title').text]
         rows << :separator
       end
