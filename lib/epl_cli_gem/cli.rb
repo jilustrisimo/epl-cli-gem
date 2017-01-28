@@ -4,7 +4,7 @@ class EplCliGem::CLI
     puts ""
     puts "Welcome to the English Premier League CLI gem\n\n".colorize(:cyan)
     puts "If the output looks messy please\nmake sure your CLI is long enough.\n\n".colorize(:light_red).underline
-    EplCliGem::Team.make_teams
+    EplCliGem::Team.make_teams # Priming set here to give user time to read preceding output.
     start
   end
 
@@ -97,6 +97,7 @@ class EplCliGem::CLI
     b_and_C = "b and C".colorize(:light_white).on_blue
     ountry = "ountry".colorize(:red).on_blue
     puts "#{for_clu}#{b_and_C}#{ountry}"
+    puts ""
     sleep 1
     abort
   end
