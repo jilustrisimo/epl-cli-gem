@@ -6,12 +6,13 @@ require 'epl_cli_gem/version'
 Gem::Specification.new do |spec|
   spec.name          = "epl_cli_gem"
   spec.version       = EplCliGem::VERSION
-  spec.authors       = ["jilustrisimo"]
+  spec.authors       = ["J Ilustrisimo"]
   spec.email         = ["j.ilustrisimo@gmail.com"]
 
   spec.summary       = "English Premier League"
   spec.description   = "Provides current EPL team rankings and info"
   spec.homepage      = "https://github.com/jilustrisimo/epl-cli-gem"
+  spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
