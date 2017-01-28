@@ -4,25 +4,25 @@ class EplCliGem::Team
 
   @@all = []
 
-  def self.new_from_table(team)
+  def self.new_from_table(row)
 
     self.new(
-      team, #=> team.nodeset: data from scrape, needed for various methods requiring scraped data
-      team.css("span.long").text, #=> team.name
-      team.css("span.value").text, #=> team.rank
-      "https://www.premierleague.com#{team.css("a").attribute("href").text}", #=> team.url
-      team.css("td[4]").text, #=> team.games_played
-      team.css("td[5]").text, #=> team.won
-      team.css("td[6]").text, #=> team.drawn
-      team.css("td[7]").text, #=> team.lost
-      team.css("td[10]").text.strip, #=> team.goal_diff
-      team.css("td.points").text #=> team.points
+      row, #=> self.nodeset: data from scrape, needed for various methods requiring scraped data
+      row.css("span.long").text, #=> self.name
+      row.css("span.value").text, #=> self.rank
+      "https://www.premierleague.com#{row.css("a").attribute("href").text}", #=> self.url
+      row.css("td[4]").text, #=> self.games_played
+      row.css("td[5]").text, #=> self.won
+      row.css("td[6]").text, #=> self.drawn
+      row.css("td[7]").text, #=> self.lost
+      row.css("td[10]").text.strip, #=> self.goal_diff
+      row.css("td.points").text #=> self.points
       )
 
   end
 
-  def initialize(team, name=nil, rank=nil, url=nil, games_played=nil, won=nil, drawn=nil, lost=nil, goal_diff=nil, points=nil)
-    @nodeset = team
+  def initialize(row, name=nil, rank=nil, url=nil, games_played=nil, won=nil, drawn=nil, lost=nil, goal_diff=nil, points=nil)
+    @nodeset = row
     @name = name
     @rank = rank
     @url = url
@@ -44,6 +44,8 @@ class EplCliGem::Team
   end
 
   def match_date
+        # matches are sometimes pending due to scheduling, if statement in place
+        # to stop NoMethodError from .text when there is no text to return
 
     if @nodeset.css("td.nextMatchCol span.matchInfo").text != ""
       @match_date = @nodeset.css("td.nextMatchCol span.matchInfo").text
@@ -54,6 +56,8 @@ class EplCliGem::Team
   end
 
   def team_1
+    # matches are sometimes pending due to scheduling, if statement in place
+    # to stop NoMethodError from .text when there is no text to return
 
     if @nodeset.css("td.nextMatchCol span.teamName")[0] != nil
       @team_1 = @nodeset.css("td.nextMatchCol span.teamName")[0].text
@@ -61,16 +65,20 @@ class EplCliGem::Team
   end
 
   def team_2
+    # matches are sometimes pending due to scheduling, if statement in place
+    # to stop NoMethodError from .text when there is no text to return
 
     if @nodeset.css("td.nextMatchCol span.teamName")[1] != nil
     @team_2 = @nodeset.css("td.nextMatchCol span.teamName")[1].text
     end
   end
 
-  def time
+  def match_time
+    # matches are sometimes pending due to scheduling, if statement in place
+    # to stop NoMethodError from .text when there is no text to return
 
     if @nodeset.css("td.nextMatchCol time").text != ""
-    @time = @nodeset.css("td.nextMatchCol time").text
+    @match_time = @nodeset.css("td.nextMatchCol time").text
     end
   end
 

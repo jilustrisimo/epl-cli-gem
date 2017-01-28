@@ -5,12 +5,11 @@ class EplCliGem::Scraper
   end
 
   def scrape_table
-    self.get_page.css("tbody.tableBodyContainer tr")
+    self.get_page.css("tbody.tableBodyContainer tr[data-compseason='54']")
   end
 
   def make_teams
-    teams = scrape_table.select{|tr| tr['data-compseason'] == "54"}
-    teams.each{|team| EplCliGem::Team.new_from_table(team)}
+    scrape_table.each{|row| EplCliGem::Team.new_from_table(row)}
   end
 
 end

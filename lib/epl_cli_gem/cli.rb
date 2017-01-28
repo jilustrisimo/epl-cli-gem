@@ -1,11 +1,10 @@
 class EplCliGem::CLI
 
   def call
-    EplCliGem::Scraper.new.make_teams
     puts ""
     puts "Welcome to the English Premier League CLI gem\n\n".colorize(:cyan)
     puts "If the output looks messy please\nmake sure your CLI is long enough.\n\n".colorize(:light_red).underline
-    sleep 2.25
+    EplCliGem::Scraper.new.make_teams
     start
   end
 
@@ -33,7 +32,7 @@ class EplCliGem::CLI
 
     rows = []
 
-    @teams = EplCliGem::Team.sorted
+    @teams ||= EplCliGem::Team.sorted
     @teams.each.with_index(1) do |team, i|
       rows << [i, team.name, team.games_played, team.goal_diff, team.points]
     end
@@ -82,10 +81,10 @@ class EplCliGem::CLI
     puts ""
     puts table
 
-    rows.clear
-    rows << [team.team_1, team.time, team.team_2]
+    match = []
+    match << [team.team_1, team.match_time, team.team_2]
 
-    next_match = Terminal::Table.new :title => "Next Match\n#{team.match_date}", :rows => rows
+    next_match = Terminal::Table.new :title => "Next Match\n#{team.match_date}", :rows => match
     next_match.align_column 0, :center
     next_match.align_column 1, :center
     next_match.align_column 2, :center
