@@ -5,8 +5,8 @@ class EplCliGem::Team
   @@all = []
 
   def self.make_teams
-    @table ||= EplCliGem::Scraper.new.scrape_table
-    @table.each{|row| self.new_from_table(row)}
+    @@table ||= EplCliGem::Scraper.new.scrape_table
+    @@table.each{|row| self.new_from_table(row)}
   end
 
   def self.new_from_table(row)
@@ -49,8 +49,8 @@ class EplCliGem::Team
   end
 
   def match_date
-        # matches are sometimes pending due to scheduling, if statement in place
-        # to stop NoMethodError from .text when there is no text to return
+      # matches are sometimes pending due to scheduling, if statement in place
+      # to stop NoMethodError from .text when there is no text to return
 
     if @nodeset.css("td.nextMatchCol span.matchInfo").text != ""
       @match_date = @nodeset.css("td.nextMatchCol span.matchInfo").text

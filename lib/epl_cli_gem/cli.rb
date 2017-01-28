@@ -19,7 +19,6 @@ class EplCliGem::CLI
     puts "(Not case sensitive)".colorize(:red)
     input = gets.strip
 
-
     ask_for_team(input)
 
     puts "Type #{yes} to learn more about another team\n otherwise enter any other key to #{eXit}."
