@@ -9,7 +9,8 @@ class EplCliGem::Scraper
   end
 
   def make_teams
-    scrape_table.each{|row| EplCliGem::Team.new_from_table(row)}
+    @table ||= scrape_table
+    @table.each{|row| EplCliGem::Team.new_from_table(row)}
   end
 
 end
