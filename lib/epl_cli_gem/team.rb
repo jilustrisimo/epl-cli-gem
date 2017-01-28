@@ -4,6 +4,11 @@ class EplCliGem::Team
 
   @@all = []
 
+  def self.make_teams
+    @table ||= EplCliGem::Scraper.new.scrape_table
+    @table.each{|row| self.new_from_table(row)}
+  end
+
   def self.new_from_table(row)
 
     self.new(

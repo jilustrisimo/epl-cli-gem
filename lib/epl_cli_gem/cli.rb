@@ -4,7 +4,7 @@ class EplCliGem::CLI
     puts ""
     puts "Welcome to the English Premier League CLI gem\n\n".colorize(:cyan)
     puts "If the output looks messy please\nmake sure your CLI is long enough.\n\n".colorize(:light_red).underline
-    EplCliGem::Scraper.new.make_teams
+    EplCliGem::Team.make_teams
     start
   end
 
@@ -41,7 +41,6 @@ class EplCliGem::CLI
     :headings => ['POSN', 'Team', 'PL', 'GD', 'Pts'], :rows => rows
     table.align_column 0, :center
 
-    puts ""
     puts table
     puts ""
   end
