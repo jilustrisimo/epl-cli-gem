@@ -7,7 +7,7 @@ class EplCliGem::Team
   def self.new_from_table(team)
 
     self.new(
-      team, #=> team.nodeset: data from scrape, needed for various methods requring scraped data
+      team, #=> team.nodeset: data from scrape, needed for various methods requiring scraped data
       team.css("span.long").text, #=> team.name
       team.css("span.value").text, #=> team.rank
       "https://www.premierleague.com#{team.css("a").attribute("href").text}", #=> team.url

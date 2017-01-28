@@ -27,10 +27,3 @@ players << array of objects
 ranks
 websites
 social media links
-
-**unable to figure out how to scrape**
-
-descriptions
-managers
-locations
-upcoming fixtures
