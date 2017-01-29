@@ -4,5 +4,3 @@ require "bundler/setup"
 require "epl_cli_gem"
 
 EplCliGem::CLI.new.call
-
-# puts "Hello"
