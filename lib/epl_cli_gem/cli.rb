@@ -96,6 +96,7 @@ class EplCliGem::CLI
     for_clu = "For Clu".colorize(:red).on_blue
     b_and_C = "b and C".colorize(:light_white).on_blue
     ountry = "ountry".colorize(:red).on_blue
+    puts ""
     puts "#{for_clu}#{b_and_C}#{ountry}"
     puts ""
     sleep 1
