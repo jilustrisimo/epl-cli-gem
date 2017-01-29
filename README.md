@@ -1,4 +1,4 @@
-# EplCliGem
+# EplCliGem [![Gem Version](https://badge.fury.io/rb/epl_cli_gem.svg)](https://badge.fury.io/rb/epl_cli_gem)
 
 This Ruby Gem provides a CLI to view the current English Premier League table as well as some basic information for each club.
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 Type the following and follow the on screen prompts.
 
-    $ ./bin/epl
+    $ epl
 
 ## Development
 
