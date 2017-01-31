@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["j.ilustrisimo@gmail.com"]
 
   spec.summary       = "English Premier League"
-  spec.description   = "Provides current EPL team rankings and info"
+  spec.description   = "Provides provides a CLI to view the current English Premier League table as well as some basic information for each club."
   spec.homepage      = "https://github.com/jilustrisimo/epl-cli-gem"
   spec.license       = "MIT"
 
