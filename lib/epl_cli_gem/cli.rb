@@ -53,7 +53,7 @@ class EplCliGem::CLI
       team = @teams.find{|team| team.name.downcase == input.downcase}
       team != nil ? print_team(team) : spell_check
 
-    elsif input.to_i.between?(1, 20)
+    elsif input.to_i.between?(1, EplCliGem::Team.all.size)
       team = @teams.find{|team| team.rank == input}
       print_team(team)
 
@@ -106,7 +106,7 @@ class EplCliGem::CLI
   def spell_check
     puts ""
     puts "Invalid Entry, please check spelling".on_red
-    puts "or select a number between 1 and 20.".on_red
+    puts "or select a number between 1 and #{EplCliGem::Team.all.size}.".on_red
     puts ""
     sleep 2
     start
