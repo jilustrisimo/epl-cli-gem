@@ -4,28 +4,6 @@ class EplCliGem::Team
 
   @@all = []
 
-  def self.make_teams
-    @@table ||= EplCliGem::Scraper.new.scrape_table
-    @@table.each{|row| self.new_from_table(row)}
-  end
-
-  def self.new_from_table(row)
-
-    self.new(
-      row, #=> self.nodeset: data from scrape, needed for various methods requiring scraped data
-      row.css("span.long").text, #=> self.name
-      row.css("span.value").text, #=> self.rank
-      "https://www.premierleague.com#{row.css("a").attribute("href").text}", #=> self.url
-      row.css("td[4]").text, #=> self.games_played
-      row.css("td[5]").text, #=> self.won
-      row.css("td[6]").text, #=> self.drawn
-      row.css("td[7]").text, #=> self.lost
-      row.css("td[10]").text.strip, #=> self.goal_diff
-      row.css("td.points").text #=> self.points
-      )
-
-  end
-
   def initialize(row, name=nil, rank=nil, url=nil, games_played=nil, won=nil, drawn=nil, lost=nil, goal_diff=nil, points=nil)
     @nodeset = row
     @name = name
@@ -50,7 +28,7 @@ class EplCliGem::Team
 
   def match_date
     #TODO: check to see if can implement if statement to skip "To be determined" and grab next match due to rescheduling
-    
+
       # matches are sometimes pending due to scheduling, if statement in place
       # to stop NoMethodError from .text when there is no text to return
 

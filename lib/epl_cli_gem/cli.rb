@@ -1,11 +1,15 @@
 class EplCliGem::CLI
 
   def call
+    welcome
+    EplCliGem::Scraper.new.scrape_table # Priming set here to give user time to read preceding output.
+    start
+  end
+
+  def welcome
     puts ""
     puts "Welcome to the English Premier League CLI gem\n\n".colorize(:cyan)
     puts "If the output looks messy please\nmake sure your CLI is long enough.\n\n".colorize(:light_red).underline
-    EplCliGem::Team.make_teams # Priming set here to give user time to read preceding output.
-    start
   end
 
   def start
