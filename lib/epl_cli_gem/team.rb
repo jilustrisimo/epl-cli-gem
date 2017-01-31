@@ -49,6 +49,8 @@ class EplCliGem::Team
   end
 
   def match_date
+    #TODO: check to see if can implement if statement to skip "To be determined" and grab next match due to rescheduling
+    
       # matches are sometimes pending due to scheduling, if statement in place
       # to stop NoMethodError from .text when there is no text to return
 
